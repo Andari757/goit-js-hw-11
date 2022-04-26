@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => {
     getData(form.searchQuery.value)
 })
 function renderGallery(r) {
-    console.log(r.data.hits[0])
+    console.log(r.data.hits)
     r.data.hits.forEach(e => {
         gallery.insertAdjacentHTML("afterbegin", `<a href="${e.data.hits[0].largeImageURL}"><img src="${e.data.hits[0].largeImageURL}" alt="" title=""/></a>`)
     });
