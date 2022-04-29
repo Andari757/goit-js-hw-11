@@ -40,31 +40,8 @@ function renderGallery(r) {
   gallery.innerHTML=""
   const markup = r.data.hits.map((e) => `<a class="item" href = "${e.largeImageURL}">
   <img height="300px" src="${e.webformatURL}" alt="${e.tags}" loading="lazy" />
-  <div class="info">
-    <p class="info-item">
-      <b>Likes</b>
-      <br>
-      ${e.likes}  
-    </p>
-    <p class="info-item">
-      <b>Views</b>
-      <br>
-      ${e.views}  
-    </p>
-    <p class="info-item">
-      <b>Comments</b>
-      <br>
-      ${e.comments} 
-    </p>
-    <p class="info-item">
-      <b>Downloads</b>
-      <br>
-      ${e.downloads}  
-    </p>
-  </div>
-</a>`).join("")
-  gallery.insertAdjacentHTML("beforeend", markup)
-  
+  <div class="info"><p class="info-item"><b>Likes</b><br>${e.likes}</p><p class="info-item"><b>Views</b><br>${e.views}</p><p class="info-item"><b>Comments</b><br>${e.comments}</p><p class="info-item"><b>Downloads</b><br>${e.downloads}</p></div></a>`).join("")
+  gallery.insertAdjacentHTML("beforeend", markup)  
   let lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250});
   lightbox.refresh()
   let infScroll = new InfiniteScroll( gallery, {
