@@ -14,25 +14,21 @@ let value = "";
 let totalHits = 0;
 loadMore.style.display = "none"
 let lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
-async function getData(value) {    
-  try {   
-    const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&`);
-    renderGallery(response)
-    
-  } catch (error) {
-    console.error(error);
-    }   
-}
-async function getMore(value) {    
-  try {         
-    const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${i}`);
-    renderGallery(response)    
+async function getData(value,executor) {    
+  try {      
+    if (executor === "button") {
+      const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${i}`);
+      renderGallery(response)
+    } else {      
+      const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&`);
+      Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`)
+    renderGallery(response)}           
   } catch (error) {
     console.error(error);
     }   
 }
 loadMore.addEventListener("click", (e) => {
-  getMore(value)
+  getData(value,"button")
   i = i + 1
 })
 form.addEventListener("submit", (e) => {
@@ -46,7 +42,7 @@ form.addEventListener("submit", (e) => {
     return
   }
   value=form.searchQuery.value
-  getData(form.searchQuery.value)
+  getData(form.searchQuery.value,"bababa")
 })
 function renderGallery(r) {
   if (!r.data.total) {
@@ -68,7 +64,6 @@ function renderGallery(r) {
     const { height: cardHeight } = document
     .querySelector(".gallery")
     .firstElementChild.getBoundingClientRect();
-
     window.scrollBy({
     top: cardHeight * 2,
     behavior: "smooth",
