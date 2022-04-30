@@ -21,7 +21,9 @@ async function getData(value,executor) {
       renderGallery(response)
     } else {      
       const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&`);
-      Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`)
+      if (response.data.totalHits) {
+        Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`)
+      }
     renderGallery(response)}           
   } catch (error) {
     console.error(error);
