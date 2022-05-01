@@ -5,7 +5,7 @@ import { smoothScroll } from './scroll.js';
 import SimpleLightbox from "simplelightbox";
 let lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
 
-export function renderGallery(r, i,  gallery,loadMore) {
+export function renderGallery(r, i,gallery,loadMore) {
   if (!r.data.total) {
     Notiflix.Notify.failure(failureText)
     return

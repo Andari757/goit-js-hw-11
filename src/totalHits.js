@@ -1,6 +1,6 @@
 import Notiflix from 'notiflix';
 let totalHits = 0;
-export function totalHitsNotify(r, i,loadMore) {
+export function totalHitsNotify(r,i,loadMore) {
     totalHits = totalHits + 40;    
     if (document.querySelector(".item")) {
         loadMore.style.display = "block"
