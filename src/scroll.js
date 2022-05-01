@@ -1,4 +1,4 @@
-export function smoothScroll(){
+export function smoothScroll(i){
 if (i >= 2) {
     const { height: cardHeight } = document
     .querySelector(".gallery")
