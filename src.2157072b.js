@@ -95,4 +95,4 @@ module.exports=require("./lib/axios");
 },{"./render":"I3Wr","axios":"dZBD"}],"Focm":[function(require,module,exports) {
 "use strict";require("./css/styles.css");var e=require("./getData");require("simplelightbox/dist/simple-lightbox.min.css");var t=require("./totalHits");const r=document.querySelector(".gallery"),i=document.querySelector("#search-form"),s=document.querySelector(".load-more");let l="",a="";s.style.display="none",s.addEventListener("click",()=>{l+=1,(0,e.getData)(a,l,r,s)}),i.addEventListener("submit",n=>{a=i.searchQuery.value.trim(),s.style.display="none",l=1,(0,t.nullify)(),n.preventDefault(),r.innerHTML="",a?(0,e.getData)(a,l,r,s):Notiflix.Notify.info("type something")});
 },{"./css/styles.css":"krre","./getData":"cD9j","simplelightbox/dist/simple-lightbox.min.css":"krre","./totalHits":"Clv2"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-11/src.f18f6df6.js.map
+//# sourceMappingURL=/goit-js-hw-11/src.2157072b.js.map
