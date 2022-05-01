@@ -9,15 +9,13 @@ export function renderGallery(r, i,  gallery,loadMore) {
   if (!r.data.total) {
     Notiflix.Notify.failure(failureText)
     return
-  }  
+  } 
 
   renderHtml(r,gallery)
 
   lightbox.refresh()
 
-  if (document.querySelector(".item")) {
-    loadMore.style.display = "block"
-  }
+  
   totalHitsNotify(r,i,loadMore)
   smoothScroll(i)
 }
