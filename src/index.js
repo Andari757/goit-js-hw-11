@@ -2,49 +2,47 @@ import './css/styles.css';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css"
 import Notiflix from 'notiflix';
+import { smoothScroll } from './scroll';
 const failureText = "Sorry, there are no images matching your search query. Please try again"
 const gallery = document.querySelector(".gallery")
 const axios = require('axios');
 const key = "27028263-30a4c0e676d46eddbf4883679"
-const form = document.querySelector("#search-form")
 const baseUrl = "https://pixabay.com/api/"
+const form = document.querySelector("#search-form")
 const loadMore = document.querySelector('.load-more')
+
 let i = "";
 let value = "";
 let totalHits = 0;
 loadMore.style.display = "none"
 let lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
-async function getData(value,executor) {    
-  try {      
-    if (executor === "button") {
-      const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${i}`);
-      renderGallery(response)
-    } else {      
-      const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&`);
-      if (response.data.totalHits) {
-        Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`)
-      }
-    renderGallery(response)}           
+async function getData(value) {
+  try {    
+    const response = await axios.get(`${baseUrl}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${i}`);     
+    if (response.data.totalHits&&i===1) {
+      Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`)
+    }
+    renderGallery(response)
   } catch (error) {
     console.error(error);
-    }   
-}
+  }
+}   
 loadMore.addEventListener("click", (e) => {
-  getData(value,"button")
   i = i + 1
+  getData(value)  
 })
 form.addEventListener("submit", (e) => {
+  value = form.searchQuery.value.trim()
   loadMore.style.display = "none" 
-  i = 2;
+  i = 1;
   totalHits = 0;
   e.preventDefault()
   gallery.innerHTML=""
-  if (!form.searchQuery.value.trim()) {
+  if (!value) {
     Notiflix.Notify.info("type something")
     return
-  }
-  value=form.searchQuery.value
-  getData(form.searchQuery.value,"bababa")
+  }  
+  getData(value)
 })
 function renderGallery(r) {
   if (!r.data.total) {
@@ -62,13 +60,5 @@ function renderGallery(r) {
     Notiflix.Notify.info("We're sorry, but you've reached the end of search results")
     loadMore.style.display = "none" 
   }
-  if (i >= 3) {
-    const { height: cardHeight } = document
-    .querySelector(".gallery")
-    .firstElementChild.getBoundingClientRect();
-    window.scrollBy({
-    top: cardHeight * 2,
-    behavior: "smooth",
-    })
-  }  
+  smoothScroll()
 }
